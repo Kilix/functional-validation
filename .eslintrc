@@ -1,0 +1,11 @@
+{
+    "extends": "airbnb",
+    "rules": {
+        "indent": [
+            0
+        ],
+        "no-confusing-arrow": 0,
+        "no-useless-escape": 0
+    },
+    "parser": "babel-eslint"
+}
