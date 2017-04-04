@@ -1,5 +1,4 @@
 // @flow
-// import moment from 'moment';
 import R from 'ramda';
 
 /**
@@ -18,9 +17,9 @@ const testMissingValue = (field: any): string | null =>
   * @param {Date|moment} limit - The reference date
   * @return {string} "before" if the date is before the limit, and both are specified, null if not
   */
-// type DatesT = {date: ?string, limit: ?string};
-// const testDateAfter = ({date, limit}: DatesT) =>
-//     date === null || limit === null || moment(date).isAfter(limit) ? null : 'before';
+type DatesT = { date: ?string, limit: ?string };
+const testDateAfter = ({ date, limit }: DatesT) =>
+    date === null || limit === null || new Date(date) - new Date(limit) > 0 ? null : 'before';
 
 /**
   * @desc Test if a value is greater than another
@@ -63,7 +62,7 @@ const testEmailFormat = (value: ?string) => {
 };
 
 export {
-    // testDateAfter,
+    testDateAfter,
     testGreaterThan,
     testMissingValue,
     testOnlyLetters,

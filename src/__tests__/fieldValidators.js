@@ -1,6 +1,6 @@
 import {
     testMissingValue,
-    // testDateAfter,
+    testDateAfter,
     testGreaterThan,
     testOnlyLetters,
     testLength,
@@ -25,27 +25,27 @@ it('testMissingValue', () => {
     expect(actual).toBe(expected);
 });
 
-// it.skip('testDateAfter', () => {
-//     let actual = testDateAfter({ date: '2017-02-14', limit: '2017-02-12' });
-//     let expected = null;
-//     expect(actual).toBe(expected);
+it('testDateAfter', () => {
+    let actual = testDateAfter({ date: '2017-02-14', limit: '2017-02-12' });
+    let expected = null;
+    expect(actual).toBe(expected);
 
-//     actual = testDateAfter({ date: '2017-02-14', limit: null });
-//     expected = null;
-//     expect(actual).toBe(expected);
+    actual = testDateAfter({ date: '2017-02-14', limit: null });
+    expected = null;
+    expect(actual).toBe(expected);
 
-//     actual = testDateAfter({ date: null, limit: null });
-//     expected = null;
-//     expect(actual).toBe(expected);
+    actual = testDateAfter({ date: null, limit: null });
+    expected = null;
+    expect(actual).toBe(expected);
 
-//     actual = testDateAfter({ date: null, limit: '2017-02-12' });
-//     expected = null;
-//     expect(actual).toBe(expected);
+    actual = testDateAfter({ date: null, limit: '2017-02-12' });
+    expected = null;
+    expect(actual).toBe(expected);
 
-//     actual = testDateAfter({ date: '2017-02-14', limit: '2017-02-27' });
-//     expected = 'before';
-//     expect(actual).toBe(expected);
-// });
+    actual = testDateAfter({ date: '2017-02-14', limit: '2017-02-27' });
+    expected = 'before';
+    expect(actual).toBe(expected);
+});
 
 it('testGreaterThan', () => {
     let actual = testGreaterThan({ value: 12, min: 0 });
