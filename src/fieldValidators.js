@@ -61,11 +61,34 @@ const testEmailFormat = (value: ?string) => {
     return regexp.test(value.trim()) ? null : 'notEmail';
 };
 
+/**
+  * @desc Test an array or a string's max length
+  * @param {?string|Array} value - The array or string
+  * @return {?string} 'wrongLength' if the value is too long, null if it is correct
+  */
+const checkMaxLength = R.curry(
+    (maxLength: number, input: ?string) =>
+        (typeof input !== 'string' && !Array.isArray(input)) || input.length <= maxLength
+            ? null
+            : 'wrongLength',
+);
+
+/**
+  * @desc Test if a number is contained between two others (included)
+  * @param {?number} value - The array or string
+  * @return {?string} 'wrongValue' if the value is outside of the boundaries, null if not
+  */
+const isBetween = R.curry(
+    (min: number, max: number, input) => input < min || input > max ? 'wrongValue' : null,
+);
+
 export {
     testDateAfter,
     testGreaterThan,
     testMissingValue,
     testOnlyLetters,
     testLength,
+    checkMaxLength,
     testEmailFormat,
+    isBetween,
 };
