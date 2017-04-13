@@ -5,6 +5,8 @@ import {
     testOnlyLetters,
     testLength,
     testEmailFormat,
+    checkMaxLength,
+    isBetween,
 } from '../fieldValidators';
 
 it('testMissingValue', () => {
@@ -117,4 +119,29 @@ it('testEmailFormat', () => {
     actual = testEmailFormat(null);
     expected = null;
     expect(actual).toBe(expected);
+});
+
+describe('checkMaxLength', () => {
+    const isMaxTwoOfLength = checkMaxLength(2);
+    it('should work with strings', () => {
+        expect(isMaxTwoOfLength('aa')).toBe(null);
+        expect(isMaxTwoOfLength('aaa')).toBe('wrongLength');
+    });
+    it('should work with arrays', () => {
+        expect(isMaxTwoOfLength([0, 1])).toBe(null);
+        expect(isMaxTwoOfLength([0, 1, 2])).toBe('wrongLength');
+    });
+    it('should not return an error for an empty value', () => {
+        expect(isMaxTwoOfLength(null)).toBe(null);
+    });
+});
+
+it('isBetween', () => {
+    const isBetweenZeroAndTen = isBetween(0, 10);
+
+    expect(isBetweenZeroAndTen(2)).toBe(null);
+    expect(isBetweenZeroAndTen(0)).toBe(null);
+    expect(isBetweenZeroAndTen(10)).toBe(null);
+    expect(isBetweenZeroAndTen(-1)).toBe('wrongValue');
+    expect(isBetweenZeroAndTen(11)).toBe('wrongValue');
 });
