@@ -13,6 +13,7 @@
     "test:ci": "jest --coverage && codecov",
     "lint": "eslint ./src",
     "precommit": "lint-staged",
+    "prepublish": "npm run build",
     "format": "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
   },
   "repository": {
