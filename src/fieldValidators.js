@@ -22,6 +22,15 @@ const testDateAfter = ({ date, limit }: DatesT) =>
     date === null || limit === null || new Date(date) - new Date(limit) > 0 ? null : 'before';
 
 /**
+  * @desc Check if a date is before the given date
+  * @param {Date|moment} date - The date to test
+  * @param {Date|moment} limit - The reference date
+  * @return {string} "after" if the date is after the limit, and both are specified, null if not
+  */
+const testDateBefore = ({ date, limit }: DatesT) =>
+    date === null || limit === null || new Date(date) - new Date(limit) < 0 ? null : 'after';
+
+/**
   * @desc Test if a value is greater than another
   * @param {Number} value - The value to test
   * @param {Number} min - The value to be greater than
@@ -84,6 +93,7 @@ const isBetween = R.curry(
 
 export {
     testDateAfter,
+    testDateBefore,
     testGreaterThan,
     testMissingValue,
     testOnlyLetters,
