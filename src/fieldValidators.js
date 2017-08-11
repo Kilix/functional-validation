@@ -17,9 +17,11 @@ const testMissingValue = (field: any): string | null =>
   * @param {Date|moment} limit - The reference date
   * @return {string} "before" if the date is before the limit, and both are specified, null if not
   */
-type DatesT = { date: ?string, limit: ?string };
+type DateT = string | Date | any; // Also handle moment objects, or object with a valueOf
+const getDate = (date: DateT) => new Date(date.valueOf ? date.valueOf() : date);
+type DatesT = { date: ?DateT, limit: ?DateT };
 const testDateAfter = ({ date, limit }: DatesT) =>
-    date === null || limit === null || new Date(date) - new Date(limit) > 0 ? null : 'before';
+    !date || !limit || getDate(date) - getDate(limit) > 0 ? null : 'before';
 
 /**
   * @desc Check if a date is before the given date
@@ -28,7 +30,7 @@ const testDateAfter = ({ date, limit }: DatesT) =>
   * @return {string} "after" if the date is after the limit, and both are specified, null if not
   */
 const testDateBefore = ({ date, limit }: DatesT) =>
-    date === null || limit === null || new Date(date) - new Date(limit) < 0 ? null : 'after';
+    !date || !limit || getDate(date) - getDate(limit) < 0 ? null : 'after';
 
 /**
   * @desc Test if a value is greater than another
@@ -55,7 +57,7 @@ const testOnlyLetters = (value: ?string) =>
   * @return {?string} 'wrongLength' if the item doesn't have the specified length, null if it has
   */
 const testLength = R.curry(
-    (length, value) => !value || !length || value.length === length ? null : 'wrongLength',
+    (length, value) => (!value || !length || value.length === length ? null : 'wrongLength'),
 );
 
 /**
@@ -88,7 +90,7 @@ const checkMaxLength = R.curry(
   * @return {?string} 'wrongValue' if the value is outside of the boundaries, null if not
   */
 const isBetween = R.curry(
-    (min: number, max: number, input) => input < min || input > max ? 'wrongValue' : null,
+    (min: number, max: number, input) => (input < min || input > max ? 'wrongValue' : null),
 );
 
 export {

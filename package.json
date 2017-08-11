@@ -1,63 +1,67 @@
 {
-  "name": "@kilix/functional-validation",
-  "version": "1.3.1",
-  "description": "Lightweight and customisable validation, built through composition",
-  "main": "lib/index.js",
-  "scripts": {
-    "prebuild": "rimraf lib/",
-    "build": "npm-run-all --parallel build:*",
-    "build:main": "babel src --out-dir lib --ignore '**/__tests__/**'",
-    "build:umd": "webpack --output-filename index.umd.js -p",
-    "flow": "flow check",
-    "test": "jest --watch",
-    "test:ci": "jest --coverage && codecov",
-    "lint": "eslint ./src",
-    "precommit": "lint-staged",
-    "prepublish": "npm run build",
-    "format": "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kilix/functional-validation.git"
-  },
-  "keywords": [],
-  "files": [
-    "lib"
-  ],
-  "author": "aulefevre@kilix.fr",
-  "license": "MIT",
-  "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-core": "^6.23.1",
-    "babel-eslint": "^7.2.0",
-    "babel-loader": "^6.3.2",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.1.8",
-    "codecov": "^1.0.1",
-    "cross-env": "^3.1.4",
-    "eslint": "^3.16.1",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0",
-    "flow-bin": "^0.42.0",
-    "husky": "^0.13.2",
-    "jest": "^19.0.1",
-    "lint-staged": "^3.3.1",
-    "npm-run-all": "^4.0.2",
-    "prettier": "^0.21.0",
-    "rimraf": "^2.6.1",
-    "webpack": "^2.2.1"
-  },
-  "dependencies": {
-    "ramda": "^0.23.0"
-  },
-  "peerDependencies": {},
-  "lint-staged": {
-    "*.js": [
-      "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write",
-      "git add"
-    ]
-  }
+    "name": "@kilix/functional-validation",
+    "version": "1.3.1",
+    "description": "Lightweight and customisable validation, built through composition",
+    "main": "lib/index.js",
+    "scripts": {
+        "prebuild": "rimraf lib/",
+        "build": "npm-run-all --parallel build:*",
+        "build:main": "babel src --out-dir lib --ignore '**/__tests__/**'",
+        "build:umd": "webpack --output-filename index.umd.js -p",
+        "build:flow": "babel-flow src --out-dir lib",
+        "flow": "flow check",
+        "test": "jest --watch",
+        "test:ci": "jest --coverage && codecov",
+        "lint": "eslint ./src",
+        "precommit": "lint-staged",
+        "prepublishOnly": "npm run build",
+        "format": "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kilix/functional-validation.git"
+    },
+    "keywords": [],
+    "files": ["lib"],
+    "jest": {
+        "testPathIgnorePatterns": ["<rootDir>/src/__tests__/typingTests.js"]
+    },
+    "author": "aulefevre@kilix.fr",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-cli": "^6.23.0",
+        "babel-cli-flow": "^1.0.0",
+        "babel-core": "^6.23.1",
+        "babel-eslint": "^7.2.0",
+        "babel-loader": "^6.3.2",
+        "babel-plugin-transform-flow-strip-types": "^6.22.0",
+        "babel-plugin-transform-object-rest-spread": "^6.23.0",
+        "babel-preset-env": "^1.1.8",
+        "codecov": "^2.3.0",
+        "cross-env": "^5.0.5",
+        "eslint": "^4.4.1",
+        "eslint-config-airbnb": "^15.1.0",
+        "eslint-plugin-flowtype": "^2.35.0",
+        "eslint-plugin-import": "2.7",
+        "eslint-plugin-jsx-a11y": "5.1.1",
+        "flow-bin": "^0.52.0",
+        "husky": "^0.14.3",
+        "jest": "^20.0.4",
+        "lint-staged": "^4.0.3",
+        "npm-run-all": "^4.0.2",
+        "prettier": "^1.5.3",
+        "rimraf": "^2.6.1",
+        "webpack": "^2.2.1"
+    },
+    "dependencies": {
+        "eslint-plugin-react": "7.2",
+        "ramda": "^0.23.0"
+    },
+    "peerDependencies": {},
+    "lint-staged": {
+        "*.js": [
+            "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write",
+            "git add"
+        ]
+    }
 }
