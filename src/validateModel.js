@@ -1,9 +1,15 @@
 // @flow
-import Ramda from 'ramda';
+import pipe from 'ramda/src/pipe';
+import memoize from 'ramda/src/memoize';
+import flattenR from 'ramda/src/flatten';
+import mapR from 'ramda/src/map';
+import filterR from 'ramda/src/filter';
 
 // ramda flow-typed typings are not always correct, and use Array, while this library uses
 // $ReadOnlyArray
-const R: any = Ramda;
+const flatten: any = flattenR;
+const map: any = mapR;
+const filter: any = filterR;
 
 export type ErrorT = { field: string, error: string };
 type MaybeErrorT = ErrorT | null;
@@ -14,8 +20,8 @@ export type ModelValidatorT<T> = (model: T) => $ReadOnlyArray<ErrorT>;
 export type ValidationsT<T> = $ReadOnlyArray<ValidationT<T>>;
 
 function validateModel<T>(validations: ValidationsT<T>): ModelValidatorT<T> {
-    return R.memoize((model: T): $ReadOnlyArray<ErrorT> =>
-        R.pipe(R.map(validation => validation(model)), R.flatten, R.filter(Boolean))(validations),
+    return memoize((model: T): $ReadOnlyArray<ErrorT> =>
+        pipe(map(validation => validation(model)), flatten, filter(Boolean))(validations),
     );
 }
 

@@ -1,5 +1,5 @@
 // @flow
-import R from 'ramda';
+import curry from 'ramda/src/curry';
 
 /**
   * @desc Test if a value is ok for a required field.
@@ -56,7 +56,7 @@ const testOnlyLetters = (value: ?string) =>
   * @param {Number} length - The length
   * @return {?string} 'wrongLength' if the item doesn't have the specified length, null if it has
   */
-const testLength = R.curry(
+const testLength = curry(
     (length, value) => (!value || !length || value.length === length ? null : 'wrongLength'),
 );
 
@@ -77,7 +77,7 @@ const testEmailFormat = (value: ?string) => {
   * @param {?string|Array} value - The array or string
   * @return {?string} 'wrongLength' if the value is too long, null if it is correct
   */
-const checkMaxLength = R.curry(
+const checkMaxLength = curry(
     (maxLength: number, input: ?string) =>
         (typeof input !== 'string' && !Array.isArray(input)) || input.length <= maxLength
             ? null
@@ -91,7 +91,7 @@ const checkMaxLength = R.curry(
   * @param {?number} value - The value to test
   * @return {?string} 'input' if the value is outside of the boundaries, null if not
   */
-const isBetween = R.curry(
+const isBetween = curry(
     (min: number, max: number, input: ?number) =>
         typeof input === 'number' && (input < min || input > max) ? 'wrongValue' : null,
 );

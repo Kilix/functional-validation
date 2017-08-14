@@ -22,9 +22,13 @@
         "url": "git+https://github.com/kilix/functional-validation.git"
     },
     "keywords": [],
-    "files": ["lib"],
+    "files": [
+        "lib"
+    ],
     "jest": {
-        "testPathIgnorePatterns": ["<rootDir>/src/__tests__/typingTests.js"]
+        "testPathIgnorePatterns": [
+            "<rootDir>/src/__tests__/typingTests.js"
+        ]
     },
     "author": "aulefevre@kilix.fr",
     "license": "MIT",
@@ -33,7 +37,7 @@
         "babel-cli-flow": "^1.0.0",
         "babel-core": "^6.23.1",
         "babel-eslint": "^7.2.0",
-        "babel-loader": "^6.3.2",
+        "babel-loader": "^7.1.1",
         "babel-plugin-transform-flow-strip-types": "^6.22.0",
         "babel-plugin-transform-object-rest-spread": "^6.23.0",
         "babel-preset-env": "^1.1.8",
@@ -44,6 +48,7 @@
         "eslint-plugin-flowtype": "^2.35.0",
         "eslint-plugin-import": "2.7",
         "eslint-plugin-jsx-a11y": "5.1.1",
+        "eslint-plugin-react": "7.2",
         "flow-bin": "^0.52.0",
         "husky": "^0.14.3",
         "jest": "^20.0.4",
@@ -51,10 +56,9 @@
         "npm-run-all": "^4.0.2",
         "prettier": "^1.5.3",
         "rimraf": "^2.6.1",
-        "webpack": "^2.2.1"
+        "webpack": "^3.5.4"
     },
     "dependencies": {
-        "eslint-plugin-react": "7.2",
         "ramda": "^0.23.0"
     },
     "peerDependencies": {},
