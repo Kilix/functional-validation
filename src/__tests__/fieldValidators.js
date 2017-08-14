@@ -167,4 +167,5 @@ it('isBetween', () => {
     expect(isBetweenZeroAndTen(10)).toBe(null);
     expect(isBetweenZeroAndTen(-1)).toBe('wrongValue');
     expect(isBetweenZeroAndTen(11)).toBe('wrongValue');
+    expect(isBetweenZeroAndTen(null)).toBe(null);
 });

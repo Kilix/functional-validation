@@ -1,9 +1,8 @@
 // @flow
-import R from 'ramda';
 import type { ErrorT } from './validateModel';
 
 const getFieldError = (errors: $ReadOnlyArray<ErrorT>) => (field: string): $ReadOnlyArray<string> =>
-    errors.filter(R.propEq('field', field)).map(R.prop('error'));
+    errors.filter(error => error.field === field).map(error => error.error);
 
 const getFieldSpecificErrors = (
     errors: $ReadOnlyArray<ErrorT>,
@@ -11,9 +10,7 @@ const getFieldSpecificErrors = (
 ): $ReadOnlyArray<ErrorT> =>
     errors.filter(({ field, error }) => field === fieldName && error !== 'missing');
 
-const fieldHasSpecificErrors: (
-    errors: $ReadOnlyArray<ErrorT>,
-    fieldName: string,
-) => boolean = R.pipe(getFieldSpecificErrors, R.isEmpty, R.not);
+const fieldHasSpecificErrors = (errors: $ReadOnlyArray<ErrorT>, fieldName: string): boolean =>
+    getFieldSpecificErrors(errors, fieldName).length > 0;
 
 export { fieldHasSpecificErrors, getFieldError, getFieldSpecificErrors };

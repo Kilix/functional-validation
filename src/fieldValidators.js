@@ -86,11 +86,14 @@ const checkMaxLength = R.curry(
 
 /**
   * @desc Test if a number is contained between two others (included)
-  * @param {?number} value - The array or string
-  * @return {?string} 'wrongValue' if the value is outside of the boundaries, null if not
+  * @param {number} min - The lower bound (exluded)
+  * @param {number} max - The upper bound (excluded)
+  * @param {?number} value - The value to test
+  * @return {?string} 'input' if the value is outside of the boundaries, null if not
   */
 const isBetween = R.curry(
-    (min: number, max: number, input) => (input < min || input > max ? 'wrongValue' : null),
+    (min: number, max: number, input: ?number) =>
+        typeof input === 'number' && (input < min || input > max) ? 'wrongValue' : null,
 );
 
 export {

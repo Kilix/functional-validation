@@ -1,5 +1,9 @@
 // @flow
-import R from 'ramda';
+import Ramda from 'ramda';
+
+// ramda flow-typed typings are not always correct, and use Array, while this library uses
+// $ReadOnlyArray
+const R: any = Ramda;
 
 export type ErrorT = { field: string, error: string };
 type MaybeErrorT = ErrorT | null;
