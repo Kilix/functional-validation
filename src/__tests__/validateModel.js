@@ -26,14 +26,14 @@ describe('validateModel', () => {
 
     it('should return an error if the model is not valid', () => {
         const model = {};
-        const validations = [formModel => formModel.name ? null : { field: 'name', error: true }];
+        const validations = [formModel => (formModel.name ? null : { field: 'name', error: true })];
         expect(validateModel(validations)(model)).toEqual([{ field: 'name', error: true }]);
     });
 
     it('should memoize the validations', () => {
         const model = {};
         const validation = jest.fn(
-            formModel => formModel.name ? null : { field: 'name', error: true },
+            formModel => (formModel.name ? null : { field: 'name', error: true }),
         );
         const validations = [validation];
         const validateForm = validateModel(validations);
@@ -50,7 +50,7 @@ describe('full workflow validateModel with createValidation', () => {
             createValidation(
                 'name',
                 model => model.name,
-                name => name.length < 4 ? 'tooShort' : null,
+                name => (name.length < 4 ? 'tooShort' : null),
             ),
         ];
         const validateForm = validateModel(validations);
@@ -60,4 +60,21 @@ describe('full workflow validateModel with createValidation', () => {
         const getErrors = getFieldError(errors);
         expect(getErrors('name')).toEqual(['tooShort']);
     });
+});
+
+describe('nested validateModel', () => {
+    const firstValidateForm = validateModel([
+        createValidation(
+            'name',
+            model => model.name,
+            name => (name.length < 4 ? 'tooShort' : null),
+        ),
+    ]);
+    const secondValidateForm = validateModel([
+        createValidation('age', model => model.age, age => (age.length < 4 ? 'tooShort' : null)),
+        firstValidateForm,
+    ]);
+    const errors = secondValidateForm({ age: 'no', name: 'ye' });
+    expect(errors).toContainEqual({ field: 'name', error: 'tooShort' });
+    expect(errors).toContainEqual({ field: 'age', error: 'tooShort' });
 });
