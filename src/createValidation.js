@@ -1,19 +1,16 @@
 // @flow
-import pipe from 'ramda/src/pipe';
-import whenR from 'ramda/src/when';
-
 import type { ErrorT } from './validateModel';
 
-// ramda flow-typed typings are not always correct, and use Array, while this library uses
-// $ReadOnlyArray
-const when: any = whenR;
-
-function createValidation<M, T>(
+function createValidation<M, T, P: Array<any>>(
     field: string,
-    getField: (model: M) => T,
-    validateField: (field: T) => string | null,
-): M => ErrorT | null {
-    return pipe(getField, validateField, when(Boolean, error => ({ field, error })));
+    getField: (model: M, ...params: P) => T,
+    validateField: (field: T, ...params: P) => string | null,
+): (model: M, ...params: P) => ErrorT | null {
+    return function validation(model: M, ...params: P) {
+        const fieldToValidate = getField(model, ...params);
+        const error = validateField(fieldToValidate, ...params);
+        return error ? { field, error } : null;
+    };
 }
 
 export default createValidation;

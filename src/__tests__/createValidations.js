@@ -1,12 +1,21 @@
 import { createSimpleValidation, createNestedValidation } from '../createValidations';
 
-it('createSimpleValidation', () => {
-    const model = {
-        name: 'Bla',
-    };
-    const simpleValidation = createSimpleValidation(field => field === 'Bla', 'name');
-    expect(simpleValidation(model)).toEqual({ error: true, field: 'name' });
-    expect(simpleValidation({ name: 'Bluh' })).toEqual(false);
+describe('createSimpleValidation', () => {
+    it('should use the fieldName to access the relevant part of the model', () => {
+        const model = {
+            name: 'Bla',
+        };
+        const simpleValidation = createSimpleValidation(field => field === 'Bla', 'name');
+        expect(simpleValidation(model)).toEqual({ error: true, field: 'name' });
+        expect(simpleValidation({ name: 'Bluh' })).toEqual(null);
+    });
+
+    it('should forward the parameters to the fieldValidator', () => {
+        const fieldValidator = jest.fn();
+        const simpleValidation = createSimpleValidation(fieldValidator, 'name');
+        simpleValidation({ name: 'john' }, 1, false);
+        expect(fieldValidator).toHaveBeenCalledWith('john', 1, false);
+    });
 });
 
 it('createNestedValidation', () => {
@@ -17,5 +26,5 @@ it('createNestedValidation', () => {
     };
     const nestedValidation = createNestedValidation(field => field === 'Bla', ['person', 'name']);
     expect(nestedValidation(model)).toEqual({ error: true, field: 'person.name' });
-    expect(nestedValidation({ person: { name: 'Bluh' } })).toEqual(false);
+    expect(nestedValidation({ person: { name: 'Bluh' } })).toEqual(null);
 });

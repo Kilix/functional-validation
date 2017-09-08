@@ -2,11 +2,12 @@
 import validateModel from './validateModel';
 import type { ModelValidatorT, ValidationsT } from './validateModel';
 
-function runConditionalValidation<T>(
-    condition: (model: T) => boolean,
-    validations: ValidationsT<T>,
-): ModelValidatorT<T> {
-    return (model: T) => (condition(model) ? validateModel(validations)(model) : []);
+function runConditionalValidation<T, P: Array<any>>(
+    condition: (model: T, ...params: P) => boolean,
+    validations: ValidationsT<T, P>,
+): ModelValidatorT<T, P> {
+    return (model: T, ...params: P) =>
+        condition(model, ...params) ? validateModel(validations)(model, ...params) : [];
 }
 
 export default runConditionalValidation;

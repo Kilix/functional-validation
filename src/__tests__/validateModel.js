@@ -42,6 +42,14 @@ describe('validateModel', () => {
         expect(validation).toHaveBeenCalledTimes(1);
         expect(validateForm({ name: 'brrra' })).toEqual([]);
     });
+
+    it('should pass any extra parameter to the validations', () => {
+        const model = {};
+        const validation = jest.fn(() => null);
+        const validateForm = validateModel([validation]);
+        validateForm(model, true, 1);
+        expect(validation).toHaveBeenCalledWith(model, true, 1);
+    });
 });
 
 describe('full workflow validateModel with createValidation', () => {

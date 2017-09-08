@@ -58,7 +58,7 @@ const nestedValidation = createNestedValidation(isNameMissing, ['person', 'name'
 // $FlowFixMe
 const wrongNestedValidation = createNestedValidation(isNameMissing, 'person.name');
 
-const validateUser: ModelValidatorT<UserModel> = validateModel([
+const validateUser: ModelValidatorT<UserModel, Array<void>> = validateModel([
     validateName,
     validateAge,
     validateSimpleName,
@@ -85,6 +85,13 @@ const specificErrors: $ReadOnlyArray<ErrorT> = getFieldSpecificErrors(errors, 'i
 const wrongHasError: number = fieldHasSpecificErrors(errors, 'id');
 const hasError: boolean = fieldHasSpecificErrors(errors, 'id');
 
+const fieldValidationWithParams = (model: { age: number }, edit: boolean) =>
+    model.age === 1 ? null : { field: '', error: '' };
+const validateWithParams = validateModel([fieldValidationWithParams]);
+
+// $FlowFixMe
+validateWithParams({ age: 1 });
+
 // TODO
 // Mismatch between ValidationT & ModelValidator?
 // const conditionalWithWrongValidations: ModelValidatorT<UserModel> = runConditionalValidation(
@@ -94,6 +101,6 @@ const hasError: boolean = fieldHasSpecificErrors(errors, 'id');
 
 // Not sure there's a way to retrieve the type of value
 // const simpleValidationWithTypedValidator = createSimpleValidation(
-//     value => value.length > 0 ? null : 'missing',
+//     value => (value.length > 0 ? null : 'missing'),
 //     'value',
 // );
