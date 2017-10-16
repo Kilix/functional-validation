@@ -1,4 +1,9 @@
-import { fieldHasSpecificErrors, getFieldError, getFieldSpecificErrors } from '../getFieldError';
+import {
+    fieldHasSpecificErrors,
+    getFieldError,
+    getFieldSpecificErrors,
+    fieldHasErrors,
+} from '../getFieldError';
 
 describe('getFieldError', () => {
     it('should get the error', () => {
@@ -48,4 +53,18 @@ it('fieldHasSpecificErrors', () => {
     actual = fieldHasSpecificErrors(errors, 'phone');
     expected = false;
     expect(actual).toBe(expected);
+});
+
+describe('fieldHasErrors', () => {
+    it('should return true if the field contains an error', () => {
+        const actual = fieldHasErrors([{ field: 'lastname', error: 'missing' }], 'lastname');
+        const expected = true;
+        expect(actual).toBe(expected);
+    });
+
+    it('should return false if the field does not contain an error', () => {
+        const actual = fieldHasErrors([{ field: 'lastname', error: 'missing' }], 'firstname');
+        const expected = false;
+        expect(actual).toBe(expected);
+    });
 });
