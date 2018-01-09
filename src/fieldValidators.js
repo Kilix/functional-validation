@@ -9,7 +9,9 @@ import curry from 'ramda/src/curry';
   * @return {bool} True if the value is falsy
   */
 const testMissingValue = (field: any): string | null =>
-    !field || field.length === 0 || field.formattedAddress === null ? 'missing' : null;
+    (!field && field !== false) || field.length === 0 || field.formattedAddress === null
+        ? 'missing'
+        : null;
 
 /**
   * @desc Check if a date is after the given date
@@ -57,7 +59,7 @@ const testOnlyLetters = (value: ?string) =>
   * @return {?string} 'wrongLength' if the item doesn't have the specified length, null if it has
   */
 const testLength = curry(
-    (length, value) => (!value || !length || value.length === length ? null : 'wrongLength'),
+    (length, value) => !value || !length || value.length === length ? null : 'wrongLength',
 );
 
 /**

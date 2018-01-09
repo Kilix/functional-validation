@@ -26,6 +26,10 @@ it('testMissingValue', () => {
     actual = testMissingValue({ formattedAddress: null });
     expected = 'missing';
     expect(actual).toBe(expected);
+
+    actual = testMissingValue(false);
+    expected = null;
+    expect(actual).toBe(expected);
 });
 
 it('testDateAfter', () => {
