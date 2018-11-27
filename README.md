@@ -33,15 +33,15 @@ Lastly, `createValidation` is the low-level validator, we have some higher-order
 const validateAge = age => age >= 18 ? null : 'underaged';
 // This is equivalent to the previous one, since it's that common to test a field without needing
 // to use another key as the error name
-createSimpleValidation('age', validateAge);
+createSimpleValidation(validateAge,'age');
 
-createNestedValidation('person.age', validateAge);
+createNestedValidation(validateAge,['person','age']);
 // is equivalent to
 createValidation('person.age',  model => model.person.age, validateAge);
 
 runConditionValidation(
   model => model.age < 18,
-  [createSimpleValidation('authorisedByParents', authorised => authorised ? null : 'not')]
+  [createSimpleValidation(authorised => authorised ? null : 'not','authorisedByParents')]
 );
 // is equivalent to
 model => model.age < 18
