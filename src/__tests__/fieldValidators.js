@@ -146,6 +146,10 @@ it('testEmailFormat', () => {
     actual = testEmailFormat(null);
     expected = null;
     expect(actual).toBe(expected);
+
+    actual = testEmailFormat('alefévre@kilix.fr');
+    expected = 'notEmail';
+    expect(actual).toBe(expected);
 });
 
 describe('checkMaxLength', () => {
