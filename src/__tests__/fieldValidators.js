@@ -135,7 +135,7 @@ it('testLength', () => {
 });
 
 it('testEmailFormat', () => {
-    let actual = testEmailFormat('alefevre@kilix.fr');
+    let actual = testEmailFormat('hassan@cehef.fr');
     let expected = null;
     expect(actual).toBe(expected);
 
@@ -145,6 +145,10 @@ it('testEmailFormat', () => {
 
     actual = testEmailFormat(null);
     expected = null;
+    expect(actual).toBe(expected);
+
+    actual = testEmailFormat('hàssàan@céhéf.fr');
+    expected = 'notEmail';
     expect(actual).toBe(expected);
 });
 
