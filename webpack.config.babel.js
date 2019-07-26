@@ -1,12 +1,12 @@
-import { join } from 'path';
+const { join } = require('path');
 
-export default {
+module.exports = {
     entry: './src/index',
     output: {
         path: join(__dirname, 'lib/umd'),
         filename: '[name].js',
         libraryTarget: 'umd',
-        library: 'ReduxSelectEntities',
+        library: 'FunctionalValidation',
     },
     devtool: 'source-map',
     module: {

@@ -49,7 +49,6 @@ const wrongConditional = runConditionalValidation(({ value }) => value.length > 
 const conditionalWithGoodValidations = runConditionalValidation(() => true, [validateName]);
 
 const validateCorrectRequired = validateRequired('name');
-// $FlowFixMe
 const validateWrongRequired = validateRequired('age');
 
 const isNameMissing = name => (name.length > 0 ? null : 'missing');
@@ -58,7 +57,8 @@ const nestedValidation = createNestedValidation(isNameMissing, ['person', 'name'
 // $FlowFixMe
 const wrongNestedValidation = createNestedValidation(isNameMissing, 'person.name');
 
-const validateUser: ModelValidatorT<UserModel, Array<void>> = validateModel([
+// $FlowFixMe
+const validateUser: ModelValidatorT<UserModel, $ReadOnlyArray<void>> = validateModel([
     validateName,
     validateAge,
     validateSimpleName,
@@ -68,6 +68,7 @@ const validateUser: ModelValidatorT<UserModel, Array<void>> = validateModel([
     wrongConditional,
     conditionalWithGoodValidations,
     validateCorrectRequired,
+    // $FlowFixMe
     validateWrongRequired,
     nestedValidation,
     wrongNestedValidation,

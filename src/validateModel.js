@@ -14,15 +14,20 @@ const filter: any = filterR;
 export type ErrorT = { field: string, error: string };
 type MaybeErrorT = ErrorT | null;
 
-export type ValidationT<T, P: Array<any>> = (
+export type ValidationT<T, P: $ReadOnlyArray<any>> = (
     model: T,
     ...params: P
 ) => $ReadOnlyArray<ErrorT | MaybeErrorT> | MaybeErrorT;
 
-export type ModelValidatorT<T, P: Array<any>> = (model: T, ...params: P) => $ReadOnlyArray<ErrorT>;
-export type ValidationsT<T, P> = $ReadOnlyArray<ValidationT<T, P>>;
+export type ModelValidatorT<T, P: $ReadOnlyArray<any> = []> = (
+    model: T,
+    ...params: P
+) => $ReadOnlyArray<ErrorT>;
+export type ValidationsT<T, P: $ReadOnlyArray<any>> = $ReadOnlyArray<ValidationT<T, P>>;
 
-function validateModel<T, P>(validations: ValidationsT<T, P>): ModelValidatorT<T, P> {
+function validateModel<T, P: $ReadOnlyArray<any>>(
+    validations: ValidationsT<T, P>,
+): ModelValidatorT<T, P> {
     return memoize((model: T, ...params: P): $ReadOnlyArray<ErrorT> =>
         pipe(map(validation => validation(model, ...params)), flatten, filter(Boolean))(
             validations,
