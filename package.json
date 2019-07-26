@@ -6,29 +6,26 @@
     "scripts": {
         "prebuild": "rimraf lib/",
         "build": "npm-run-all --parallel build:*",
-        "build:main": "babel src --out-dir lib --ignore '**/__tests__/**'",
         "build:umd": "webpack --output-filename index.umd.js -p",
-        "build:flow": "sb-babel-cli src -o lib --ignored '**/__tests__/**' --write-flow-sources --disable-cache",
+        "build:flow":
+            "sb-babel-cli src -o lib --ignored '**/__tests__/**' --write-flow-sources --disable-cache",
         "flow": "flow",
         "test": "jest --watch",
         "test:ci": "jest --coverage && codecov",
         "lint": "eslint ./src",
         "precommit": "lint-staged",
         "prepublishOnly": "npm run build",
-        "format": "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
+        "format":
+            "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/kilix/functional-validation.git"
     },
     "keywords": [],
-    "files": [
-        "lib"
-    ],
+    "files": ["lib"],
     "jest": {
-        "testPathIgnorePatterns": [
-            "<rootDir>/src/__tests__/typingTests.js"
-        ]
+        "testPathIgnorePatterns": ["<rootDir>/src/__tests__/typingTests.js"]
     },
     "author": "aulefevre@kilix.fr",
     "license": "MIT",
