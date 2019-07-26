@@ -1,7 +1,7 @@
 // @flow
 import type { ErrorT } from './validateModel';
 
-function createValidation<M, T, P: Array<any>>(
+function createValidation<M, T, P: $ReadOnlyArray<any>>(
     field: string,
     getField: (model: M, ...params: P) => T,
     validateField: (field: T, ...params: P) => string | null,

@@ -23,6 +23,7 @@ const createSimpleValidation: CreateSimpleValidation = curry(
 
 type ValidateRequired = <T: Object>(field: $Keys<T>) => (model: T) => ErrorT | null;
 const validateRequired: ValidateRequired = createSimpleValidation(testMissingValue);
-const validateNestedRequired = createNestedValidation(testMissingValue);
+type ValidateNestedRequired = <T: Object>($ReadOnlyArray<string>) => (model: T) => ErrorT | null;
+const validateNestedRequired: ValidateNestedRequired = createNestedValidation(testMissingValue);
 
 export { createNestedValidation, createSimpleValidation, validateRequired, validateNestedRequired };

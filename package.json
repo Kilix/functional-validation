@@ -8,39 +8,36 @@
         "build": "npm-run-all --parallel build:*",
         "build:main": "babel src --out-dir lib --ignore '**/__tests__/**'",
         "build:umd": "webpack --output-filename index.umd.js -p",
-        "build:flow": "babel-flow src --out-dir lib --ignore '**/__tests__/**'",
-        "flow": "flow check",
+        "build:flow": "sb-babel-cli src -o lib --ignored '**/__tests__/**' --write-flow-sources",
+        "flow": "flow",
         "test": "jest --watch",
         "test:ci": "jest --coverage && codecov",
         "lint": "eslint ./src",
         "precommit": "lint-staged",
         "prepublishOnly": "npm run build",
-        "format": "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
+        "format":
+            "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/kilix/functional-validation.git"
     },
     "keywords": [],
-    "files": [
-        "lib"
-    ],
+    "files": ["lib"],
     "jest": {
-        "testPathIgnorePatterns": [
-            "<rootDir>/src/__tests__/typingTests.js"
-        ]
+        "testPathIgnorePatterns": ["<rootDir>/src/__tests__/typingTests.js"]
     },
     "author": "aulefevre@kilix.fr",
     "license": "MIT",
     "devDependencies": {
-        "babel-cli": "^6.23.0",
-        "babel-cli-flow": "^1.0.0",
-        "babel-core": "^6.23.1",
+        "@babel/cli": "^7.5.5 |",
+        "@babel/core": "^7.5.5 |",
+        "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+        "@babel/plugin-transform-flow-strip-types": "^7.4.4",
+        "@babel/preset-env": "^7.5.5",
+        "sb-babel-cli": "^2.0.0",
         "babel-eslint": "^7.2.0",
-        "babel-loader": "^7.1.1",
-        "babel-plugin-transform-flow-strip-types": "^6.22.0",
-        "babel-plugin-transform-object-rest-spread": "^6.23.0",
-        "babel-preset-env": "^1.1.8",
+        "babel-loader": "^8.0.6",
         "codecov": "^2.3.0",
         "cross-env": "^5.0.5",
         "eslint": "^4.4.1",
@@ -49,14 +46,15 @@
         "eslint-plugin-import": "2.7",
         "eslint-plugin-jsx-a11y": "5.1.1",
         "eslint-plugin-react": "7.2",
-        "flow-bin": "0.57.2",
+        "flow-bin": "0.103.0",
         "husky": "^0.14.3",
-        "jest": "^20.0.4",
+        "jest": "^24.8.0",
         "lint-staged": "^4.0.3",
         "npm-run-all": "^4.0.2",
         "prettier": "^1.6.1",
         "rimraf": "^2.6.1",
-        "webpack": "^3.5.4"
+        "webpack": "^4.38.0",
+        "webpack-cli": "^3.3.6"
     },
     "dependencies": {
         "ramda": "^0.23.0"

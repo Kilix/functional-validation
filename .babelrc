@@ -1,9 +1,4 @@
 {
-    "plugins": [
-        "transform-object-rest-spread",
-        "transform-flow-strip-types"
-    ],
-    "presets": [
-        ["env"]
-    ]
+    "plugins": ["@babel/plugin-proposal-object-rest-spread", "@babel/transform-flow-strip-types"],
+    "presets": ["@babel/env"]
 }

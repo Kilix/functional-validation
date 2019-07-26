@@ -12,9 +12,9 @@ export type CreateSimpleValidation = _CreateSimpleValidation1 & _CreateSimpleVal
 
 type _CreateNestedValidation1 = <M>(
     validation: Validation,
-) => (path: Array<string>) => M => ErrorT | null;
+) => (path: $ReadOnlyArray<string>) => M => ErrorT | null;
 type _CreateNestedValidation2 = <M>(
     validation: Validation,
-    path: Array<string>,
+    path: $ReadOnlyArray<string>,
 ) => M => ErrorT | null;
 export type CreateNestedValidation = _CreateNestedValidation1 & _CreateNestedValidation2;
