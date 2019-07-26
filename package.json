@@ -1,6 +1,6 @@
 {
     "name": "@kilix/functional-validation",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "description": "Lightweight and customisable validation, built through composition",
     "main": "lib/index.js",
     "scripts": {
@@ -15,17 +15,20 @@
         "lint": "eslint ./src",
         "precommit": "lint-staged",
         "prepublishOnly": "npm run build",
-        "format":
-            "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
+        "format": "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/kilix/functional-validation.git"
     },
     "keywords": [],
-    "files": ["lib"],
+    "files": [
+        "lib"
+    ],
     "jest": {
-        "testPathIgnorePatterns": ["<rootDir>/src/__tests__/typingTests.js"]
+        "testPathIgnorePatterns": [
+            "<rootDir>/src/__tests__/typingTests.js"
+        ]
     },
     "author": "aulefevre@kilix.fr",
     "license": "MIT",
