@@ -1,6 +1,6 @@
 {
     "name": "@kilix/functional-validation",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "description": "Lightweight and customisable validation, built through composition",
     "main": "lib/index.js",
     "scripts": {
@@ -8,7 +8,7 @@
         "build": "npm-run-all --parallel build:*",
         "build:main": "babel src --out-dir lib --ignore '**/__tests__/**'",
         "build:umd": "webpack --output-filename index.umd.js -p",
-        "build:flow": "sb-babel-cli src -o lib --ignored '**/__tests__/**' --write-flow-sources",
+        "build:flow": "sb-babel-cli src -o lib --ignored '**/__tests__/**' --write-flow-sources --disable-cache",
         "flow": "flow",
         "test": "jest --watch",
         "test:ci": "jest --coverage && codecov",
