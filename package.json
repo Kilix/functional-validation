@@ -1,12 +1,11 @@
 {
     "name": "@kilix/functional-validation",
-    "version": "2.3.3",
+    "version": "2.3.5",
     "description": "Lightweight and customisable validation, built through composition",
     "main": "lib/index.js",
     "scripts": {
         "prebuild": "rimraf lib/",
-        "build:flow":
-            "mkdir lib && pax -rw -pe -s/.js/.js.flow/ src/ lib/ && cp -r lib/src/ lib/ && rm -rf lib/src",
+        "build:flow": "mkdir lib && pax -rw -pe -s/.js/.js.flow/ src/ lib/ && cp -r lib/src/ lib/ && rm -rf lib/src",
         "build": "yarn build:flow && yarn build:main && yarn build:umd",
         "build:umd": "webpack --output-filename index.umd.js -p",
         "build:main": "babel src --out-dir lib --ignore '**/__tests__/**'",
@@ -16,17 +15,20 @@
         "lint": "eslint ./src",
         "precommit": "lint-staged",
         "prepublishOnly": "npm run build",
-        "format":
-            "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
+        "format": "prettier --trailing-comma all --single-quote --tab-width 4 --print-width 100 --write 'src/**/*.js'"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/kilix/functional-validation.git"
     },
     "keywords": [],
-    "files": ["lib"],
+    "files": [
+        "lib"
+    ],
     "jest": {
-        "testPathIgnorePatterns": ["<rootDir>/src/__tests__/typingTests.js"]
+        "testPathIgnorePatterns": [
+            "<rootDir>/src/__tests__/typingTests.js"
+        ]
     },
     "author": "aulefevre@kilix.fr",
     "license": "MIT",

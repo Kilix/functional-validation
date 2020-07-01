@@ -30,6 +30,10 @@ it('testMissingValue', () => {
     actual = testMissingValue(false);
     expected = null;
     expect(actual).toBe(expected);
+
+    actual = testMissingValue(' ');
+    expected = 'missing';
+    expect(actual).toBe(expected);
 });
 
 it('testDateAfter', () => {
