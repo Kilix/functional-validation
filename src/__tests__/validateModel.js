@@ -38,9 +38,46 @@ describe('validateModel', () => {
         const validations = [validation];
         const validateForm = validateModel(validations);
         expect(validateForm(model)).toEqual([{ field: 'name', error: true }]);
-        expect(validateForm(model)).toEqual([{ field: 'name', error: true }]);
+        expect(validateForm({})).toEqual([{ field: 'name', error: true }]);
         expect(validation).toHaveBeenCalledTimes(1);
         expect(validateForm({ name: 'brrra' })).toEqual([]);
+        expect(validateForm({})).toEqual([{ field: 'name', error: true }]);
+        expect(validation).toHaveBeenCalledTimes(2);
+    });
+
+    it('should not return cached data when the function is called with differents params', () => {
+        const validation = jest.fn(formModel => {
+            if (formModel.list) {
+                return formModel.list.find(elem => elem.length >= 4)
+                    ? { field: 'list', error: true }
+                    : null;
+            }
+            if (formModel.files) {
+                return formModel.files.reduce((a, b) => a + b.size, 0) > 4
+                    ? { field: 'files', error: true }
+                    : null;
+            }
+        });
+        const validations = [validation];
+        const validateForm = validateModel(validations);
+        expect(validateForm({ list: [] })).toEqual([]);
+        expect(validateForm({ list: ['bla'] })).toEqual([]);
+        expect(validation).toHaveBeenCalledTimes(2);
+        expect(validateForm({ list: ['bla'] })).toEqual([]);
+        expect(validation).toHaveBeenCalledTimes(2); // should still have been called 2 times
+        expect(validateForm({ list: ['aLongWord'] })).toEqual([{ field: 'list', error: true }]);
+        expect(validateForm({ list: ['aLongWord', 'lol'] })).toEqual([
+            { field: 'list', error: true },
+        ]);
+        expect(validateForm({ list: ['blablaCrous', 'li'] })).toEqual([
+            { field: 'list', error: true },
+        ]);
+        expect(validateForm({ list: ['foo', 'ta'] })).toEqual([]); // works for 2 elems
+        expect(validateForm({ files: [{ type: 'text/plain', size: 1 }, { size: 1 }] })).toEqual([]);
+        expect(validateForm({ files: [{ type: 'text/plain', size: 40 }, { size: 1 }] })).toEqual([
+            { field: 'files', error: true },
+        ]);
+        expect(validation).toHaveBeenCalledTimes(8);
     });
 
     it('should pass any extra parameter to the validations', () => {
