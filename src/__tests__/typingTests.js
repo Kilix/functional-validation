@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable */
 import {
     validateModel,
     createValidation,
