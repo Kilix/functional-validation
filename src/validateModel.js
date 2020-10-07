@@ -38,11 +38,9 @@ function validateModel<T, P: $ReadOnlyArray<any>>(
     validations: ValidationsT<T, P>,
 ): ModelValidatorT<T, P> {
     return memoizeWith(isEqual, (model: T, ...params: P): $ReadOnlyArray<ErrorT> =>
-        pipe(
-            map(validation => validation(model, ...params)),
-            flatten,
-            filter(Boolean),
-        )(validations),
+        pipe(map(validation => validation(model, ...params)), flatten, filter(Boolean))(
+            validations,
+        ),
     );
 }
 
