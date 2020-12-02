@@ -1,6 +1,6 @@
 {
     "name": "@kilix/functional-validation",
-    "version": "2.4.1",
+    "version": "2.5.0",
     "description": "Lightweight and customisable validation, built through composition",
     "main": "lib/index.js",
     "scripts": {
