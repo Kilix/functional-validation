@@ -79,6 +79,18 @@ const testEmailFormat = (value: ?string) => {
 };
 
 /**
+ * @desc Test if a value is a valid linkedIn url
+ * @param {?string} value - The value of the field
+ * @return {?string} 'notLinkedInUrl' if the value is not a valid linkedIn Url, null if it is
+ */
+const testLinkedInUrlFormat = (value: ?string) => {
+    if (!value) return null;
+
+    const regexp = /(https?)?:?(\/\/)?(([w]{3}||\w\w)\.)?linkedin.com\/in\//; // eslint-disable-line no-control-regex
+    return regexp.test(value.trim()) ? null : 'notLinkedInUrl';
+};
+
+/**
  * @desc Test an array or a string's max length
  * @param {?string|Array} value - The array or string
  * @return {?string} 'wrongLength' if the value is too long, null if it is correct
@@ -111,5 +123,6 @@ export {
     testLength,
     checkMaxLength,
     testEmailFormat,
+    testLinkedInUrlFormat,
     isBetween,
 };

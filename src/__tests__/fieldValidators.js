@@ -6,6 +6,7 @@ import {
     testOnlyLetters,
     testLength,
     testEmailFormat,
+    testLinkedInUrlFormat,
     checkMaxLength,
     isBetween,
 } from '../fieldValidators';
@@ -153,6 +154,28 @@ it('testEmailFormat', () => {
 
     actual = testEmailFormat('hàssàan@céhéf.fr');
     expected = 'notEmail';
+    expect(actual).toBe(expected);
+});
+
+it('testLinkedInUrlFormat', () => {
+    let actual = testLinkedInUrlFormat('https://www.linkedin.com/in/url-test/');
+    let expected = null;
+    expect(actual).toBe(expected);
+
+    actual = testLinkedInUrlFormat('Bob');
+    expected = 'notLinkedInUrl';
+    expect(actual).toBe(expected);
+
+    actual = testLinkedInUrlFormat(null);
+    expected = null;
+    expect(actual).toBe(expected);
+
+    actual = testLinkedInUrlFormat('https://www.linkedgin.com/in/url-test/');
+    expected = 'notLinkedInUrl';
+    expect(actual).toBe(expected);
+
+    actual = testLinkedInUrlFormat('https://www.linkedin.com/on/url-test/');
+    expected = 'notLinkedInUrl';
     expect(actual).toBe(expected);
 });
 
