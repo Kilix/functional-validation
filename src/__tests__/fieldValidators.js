@@ -157,26 +157,54 @@ it('testEmailFormat', () => {
     expect(actual).toBe(expected);
 });
 
-it('testLinkedInUrlFormat', () => {
-    let actual = testLinkedInUrlFormat('https://www.linkedin.com/in/url-test/');
-    let expected = null;
-    expect(actual).toBe(expected);
+describe('testLinkedInUrlFormat', () => {
+    it('Should return notLinkedInUrl error message if param is not an url', () => {
+        const actual = testLinkedInUrlFormat('Bob');
+        expect(actual).toBe('notLinkedInUrl');
+    });
+    it('Should return notLinkedInUrl error message if url has not http', () => {
+        const actual = testLinkedInUrlFormat('www.linkedin.com/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
+    });
+    it('Should return notLinkedInUrl error message if http is badly written', () => {
+        let actual = testLinkedInUrlFormat('htps://www.linkedin.com/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
 
-    actual = testLinkedInUrlFormat('Bob');
-    expected = 'notLinkedInUrl';
-    expect(actual).toBe(expected);
+        actual = testLinkedInUrlFormat('https//www.linkedin.com/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
 
-    actual = testLinkedInUrlFormat(null);
-    expected = null;
-    expect(actual).toBe(expected);
+        actual = testLinkedInUrlFormat('https:www.linkedin.com/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
+    });
+    it('Should return notLinkedInUrl error message if dns is different of linkedIn dns', () => {
+        let actual = testLinkedInUrlFormat('https://www.linkedinsss.com/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
 
-    actual = testLinkedInUrlFormat('https://www.linkedgin.com/in/url-test/');
-    expected = 'notLinkedInUrl';
-    expect(actual).toBe(expected);
+        actual = testLinkedInUrlFormat('https://wwwddd.linkedin.com/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
 
-    actual = testLinkedInUrlFormat('https://www.linkedin.com/on/url-test/');
-    expected = 'notLinkedInUrl';
-    expect(actual).toBe(expected);
+        actual = testLinkedInUrlFormat('https://www.linkedin.fr/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
+    });
+    it('Should return notLinkedInUrl error message if url has not /in/', () => {
+        const actual = testLinkedInUrlFormat('https://www.linkedin.com/on/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
+    });
+    it('Should return null if url format is correct', () => {
+        // with number in end of the url
+        let actual = testLinkedInUrlFormat('https://www.linkedin.com/in/99erest/');
+        expect(actual).toBe(null);
+
+        // without www.
+        actual = testLinkedInUrlFormat('https://linkedin.com/in/url-test/');
+        expect(actual).toBe(null);
+
+        // with special chars in end of the url
+        actual = testLinkedInUrlFormat(
+            'https://www.linkedin.com/in/%E2?9A=9B&+_#-test-url-716a96119/',
+        );
+        expect(actual).toBe(null);
+    });
 });
 
 describe('checkMaxLength', () => {
