@@ -158,6 +158,10 @@ it('testEmailFormat', () => {
 });
 
 describe('testLinkedInUrlFormat', () => {
+    it('Should return null if param url is null', () => {
+        const actual = testLinkedInUrlFormat(null);
+        expect(actual).toBe(null);
+    });
     it('Should return notLinkedInUrl error message if param is not an url', () => {
         const actual = testLinkedInUrlFormat('Bob');
         expect(actual).toBe('notLinkedInUrl');
@@ -178,6 +182,9 @@ describe('testLinkedInUrlFormat', () => {
     });
     it('Should return notLinkedInUrl error message if dns is different of linkedIn dns', () => {
         let actual = testLinkedInUrlFormat('https://www.linkedinsss.com/in/url-test/');
+        expect(actual).toBe('notLinkedInUrl');
+
+        actual = testLinkedInUrlFormat('https://ww.linkedin.com/in/url-test/');
         expect(actual).toBe('notLinkedInUrl');
 
         actual = testLinkedInUrlFormat('https://wwwddd.linkedin.com/in/url-test/');
