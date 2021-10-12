@@ -86,7 +86,7 @@ const testEmailFormat = (value: ?string) => {
 const testLinkedInUrlFormat = (value: ?string) => {
     if (!value) return null;
 
-    const regexp = /(https?):(\/\/)(([w]{3}||\w\w)\.)?linkedin.com\/in\/.+/; // eslint-disable-line no-control-regex
+    const regexp = /(https?):(\/\/)(www\.)?linkedin.com\/in\/.+/; // eslint-disable-line no-control-regex
     return regexp.test(value.trim()) ? null : 'notLinkedInUrl';
 };
 
