@@ -48,3 +48,5 @@ model => model.age < 18
   ? model.authorisedByParents ? null : 'not'
   : null;
 ```
+
+ 🌱 You can find the rest of validators like `testDateAfter`, `testGreaterThan`, `testLength`, `testEmailFormat` etc. in the code [here](https://github.com/Kilix/functional-validation/tree/master/src/fieldValidators.js).
